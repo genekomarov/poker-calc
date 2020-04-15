@@ -1,0 +1,20 @@
+.cardSelection {
+    width: 270px;
+    padding: 25px;
+    position: absolute;
+    left: 5px;
+    background-color: rgba(255,255,255,.8);
+    border: solid gray 1px;
+}
+
+.cardValue {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+}
+
+.cardSuit {
+    display: flex;
+    flex-wrap: wrap;
+}
+

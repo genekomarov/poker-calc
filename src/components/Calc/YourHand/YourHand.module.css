@@ -1,0 +1,15 @@
+.cardsWrapper {
+    /*width: 93px;*/
+    display: flex;
+    margin-left: -5px;
+}
+
+.raund {
+    text-align: right;
+    margin-top: 10px;
+}
+
+.wrapper {
+    margin-bottom: 60px;
+
+}

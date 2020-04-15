@@ -1,0 +1,30 @@
+html {
+  background-color: slategrey;
+}
+
+h3 {
+  font-size: 1.2rem;
+  font-weight: normal;
+  margin: 0px 0px 10px;
+}
+
+h4 {
+  font-size: 1rem;
+  font-weight: normal;
+  margin: 0px 0px 10px;
+}
+
+p {
+  margin: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style-type: none;
+  /*  margin: 0;
+    padding: 0;*/
+}

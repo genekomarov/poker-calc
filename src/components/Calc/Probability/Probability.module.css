@@ -1,0 +1,27 @@
+.baseProb {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.pokerHandName {
+    padding-left: 40px;
+}
+
+.pokerHand {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.players {
+    margin-bottom: 20px;
+}
+
+.players span {
+    margin-left: 10px;
+}
+
+.players input {
+    text-align: center;
+}
