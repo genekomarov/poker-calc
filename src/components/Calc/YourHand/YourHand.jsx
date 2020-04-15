@@ -1,7 +1,7 @@
 import React from 'react';
 import s from './YourHand.module.css'
-import Card from "../../common/Card/Card";
 import CardSelection from "../../common/CardSelection/CardSelection";
+import CardContainer from "../../common/Card/CardContainer";
 
 const YourHand = (props) => {
 
@@ -9,8 +9,8 @@ const YourHand = (props) => {
         <div className={s.wrapper}>
             <h3>Your hand</h3>
             <div className={s.cardsWrapper}>
-                <Card />
-                <Card />
+                <CardContainer showFor='CARDS-ON-TABLE' cardId='15'/>
+                <CardContainer showFor='CARDS-ON-TABLE' cardId='25'/>
             </div>
             {/*<CardSelection />*/}
         </div>
