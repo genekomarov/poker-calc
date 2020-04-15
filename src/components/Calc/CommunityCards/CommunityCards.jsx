@@ -14,8 +14,9 @@ const CommunityCards = (props) => {
                 <Card />
                 <Card />
                 <Card />
+                <Card />
             </div>
-            {/*<CardSelection />*/}
+            <CardSelection />
             <p className={s.raund}>raund</p>
         </div>
     );
