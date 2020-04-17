@@ -9,5 +9,5 @@
 }
 
 .active {
-    border: solid 2px purple;
+    border: solid 2px purple !important;
 }

@@ -1,9 +1,10 @@
-const CLICK_CARD= 'CLICK-CARD';
+const CLICK_CARD = 'CLICK-CARD';
 
 ///////////////////////////////////////
-const CHANGE_SUIT='CHANGE-SUIT';
-const CHANGE_VALUE='CHANGE-VALUE';
-const CARDS_ON_TABLE='CARDS-ON-TABLE';
+const CHANGE_SUIT = 'CHANGE-SUIT';
+const CHANGE_VALUE = 'CHANGE-VALUE';
+const COMMUNITY_CARDS = 'COMMUNITY-CARDS';
+const YOUR_CARDS = 'YOUR_CARDS';
 
 let initialState =
     {
@@ -79,19 +80,25 @@ let initialState =
             {name: 'Straight-flush', currentProb: -1},          // id: '9',
             {name: 'Flush Royal', currentProb: -1}              // id: '10',
         ],
-        cardDeck: [],
-        communityCardSet: [],
-        handCardSet: [],
 
-        cardSelectionDialog: {
-            showFor: '', // {communityCards,  handCards}
-            selectedCard: {}, //Object from cardTypeSet
-            selectedSuitId: 53
+        cardDeck: {
+            set: []
         },
 
-        singleCard: {
-            showFor: '', // {changeSuit, changeValue, cardsOnTable}
-        }
+        communityCardSet: {
+            set: [5, 20, 35],
+            selectedItem: 1
+        },
+
+        handCardSet: {
+            set: [10],
+            selectedItem: null
+        },
+
+        cardSelectionDialog: {
+            selectedValueId: 49,
+            selectedSuitId: 53
+        },
 
     };
 
@@ -99,30 +106,75 @@ const calcReducer = (state = initialState, action) => {
     switch (action.type) {
         case CLICK_CARD:
             switch (action.showFor) {
-                case CHANGE_SUIT:
-                    return {
+                case CHANGE_SUIT: {
+
+                    let absValue = Math.trunc((state.cardSelectionDialog.selectedValueId + 4) / 4 - 0.25);
+                    let value = absValue * 4 - 4 + action.cardId - 52;
+
+                    let newState = {
                         ...state,
                         cardSelectionDialog: {
                             ...state.cardSelectionDialog,
-                            selectedSuitId: action.cardId
-                        }};
-                case CHANGE_VALUE:
-                    alert('CHANGE_VALUE '+ action.cardId);
+                            selectedSuitId: action.cardId,
+                            selectedValueId: value
+                        },
+                        communityCardSet: {
+                            ...state.communityCardSet,
+                            set: [...state.communityCardSet.set]
+                        }
+                    };
+
+                    newState.communityCardSet.set[state.communityCardSet.selectedItem - 1] = value;
+
+                    return newState;
+                }
+                case CHANGE_VALUE: {
+
+                    let newState = {
+                        ...state,
+                        cardSelectionDialog: {
+                            ...state.cardSelectionDialog,
+                            selectedValueId: action.cardId
+                        },
+                        communityCardSet: {
+                            ...state.communityCardSet,
+                            set: [...state.communityCardSet.set]
+                        },
+                        /*handCardSet: {
+                            ...state.handCardSet,
+                            set: [ ...state.handCardSet.set]
+                        }*/
+                    };
+
+                    newState.communityCardSet.set[state.communityCardSet.selectedItem - 1] = action.cardId;
+                    return newState
+                }
+
+                case COMMUNITY_CARDS:
+                    /*alert('COMMUNITY-CARDS ' + action.cardId);*/
+
+                    return {
+                        ...state,
+                        communityCardSet: {
+                            ...state.communityCardSet,
+                            selectedItem: action.elementNumber
+                        }
+                    };
+
+                default:
                     return state;
-                case CARDS_ON_TABLE:
-                    alert('CARDS_ON_TABLE '+ action.cardId);
-                    return state;
-                default: return state;
             }
-        default: return state;
+        default:
+            return state;
     }
 };
 
-export const clickCard = (showFor, cardId) =>
+export const clickCard = (showFor, cardId, elementNumber) =>
     ({
         type: CLICK_CARD,
         showFor,
-        cardId
+        cardId,
+        elementNumber
     });
 
 export default calcReducer;

@@ -8,12 +8,13 @@ const Card = (props) => {
 
     return (
         <div
-            className={s.card}
+            className={`${s.card} ${props.active && s.active}`}
+
             style={{
                 backgroundImage: `url(${cardsImage})`,
                 backgroundPositionX: offset
             }}
-            onClick={ () => {props.clickCard(props.showFor, props.cardId)} }>
+            onClick={ () => {props.clickCard(props.showFor, props.cardId, props.elementNumber)}}>
         </div>
     );
 };
