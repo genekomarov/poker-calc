@@ -1,8 +1,8 @@
 import React from 'react';
-import s from './Card.module.css'
+import s from './CardIMG.module.css'
 import cardsImage from './../../../assets/images/cards.jpg'
 
-const Card = (props) => {
+const CardIMG = (props) => {
 
     let offset = 0 - props.cardId *  42.51;
 
@@ -13,10 +13,9 @@ const Card = (props) => {
             style={{
                 backgroundImage: `url(${cardsImage})`,
                 backgroundPositionX: offset
-            }}
-            onClick={ () => {props.clickCard(props.showFor, props.cardId, props.elementNumber)}}>
+            }}>
         </div>
     );
 };
 
-export default Card;
+export default CardIMG;

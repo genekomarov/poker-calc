@@ -3,11 +3,12 @@ import CommunityCards from "./CommunityCards";
 
 let mapStateToProps = (state) => {
     return {
-        communityCardSet: state.calc.communityCardSet
+        communityCards: state.calc.communityCards,
+        visibleFor: state.calc.cardSelectionDialog.visibleFor
     }
 };
 
-let mapDispatchToProps = { //as Object
+let mapDispatchToProps = {
 
 };
 

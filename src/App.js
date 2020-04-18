@@ -1,12 +1,11 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import Calc from "./components/Calc/Calc";
+import CalcContainer from "./components/Calc/CalcContainer";
 
 function App() {
   return (
       <main>
-        <Calc />
+        <CalcContainer />
       </main>
   );
 }
