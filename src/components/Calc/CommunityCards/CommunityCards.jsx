@@ -37,7 +37,7 @@ const CommunityCards = (props) => {
                 {cards}
             </div>
             { props.visibleFor === 'communityCards' && <CardSelectionContainer />}
-            {/*<p className={s.raund}>raund</p>*/}
+            <p className={s.raund}>{props.raund}</p>
         </div>
     );
 };

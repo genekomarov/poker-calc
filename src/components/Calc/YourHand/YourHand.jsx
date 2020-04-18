@@ -1,18 +1,42 @@
 import React from 'react';
 import s from './YourHand.module.css'
-import CardSelection from "../../common/CardSelection/CardSelection";
-import CardIMGContainer from "../../common/CardIMG/CardIMGContainer";
+import CardContainer from "./Card/CardContainer";
+import CardSelectionContainer from "../../common/CardSelection/CardSelectionContainer";
 
 const YourHand = (props) => {
+
+    let cards = [];
+    for (let i = 1; i <= 2; i++) {
+        if ( props.handCards.set[i-1] ) {
+            cards.push(
+                <CardContainer
+                    key={i}
+                    cardId={props.handCards.set[i-1]}
+                    active={props.handCards.activeItem === i && true}
+                    setName='handCards'
+                    itemNumber={i}
+                />
+            )
+        } else {
+            cards.push(
+                <CardContainer
+                    key={i}
+                    cardId={0}
+                    active={props.handCards.activeItem === i && true}
+                    setName='handCards'
+                    itemNumber={i}
+                />
+            )
+        }
+    }
 
     return (
         <div className={s.wrapper}>
             <h3>Your hand</h3>
             <div className={s.cardsWrapper}>
-                <CardIMGContainer showFor='CARDS-ON-TABLE' cardId='15'/>
-                <CardIMGContainer showFor='CARDS-ON-TABLE' cardId='25'/>
+                {cards}
             </div>
-            {/*<CardSelection />*/}
+            { props.visibleFor === 'handCards' && <CardSelectionContainer />}
         </div>
     );
 };

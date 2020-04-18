@@ -8,6 +8,7 @@ const CHANGE_CARD = 'CHANGE_CARD';
 const CLOSE_CARD_SELECTION_DIALOG = 'CLOSE_CARD_SELECTION_DIALOG';
 const TAMP_CARDS = 'TAMP_CARDS';
 const UPDATE_CURRENT_DECK = 'UPDATE_CURRENT_DECK';
+const SHOW_RAUND = 'SHOW_RAUND';
 
 let initialState =
     {
@@ -102,6 +103,8 @@ let initialState =
             selectedSuit: 53,
             visibleFor: null
         },
+
+        raund: 'pre-flop'
 
     };
 
@@ -218,6 +221,22 @@ const calcReducer = (state = initialState, action) => {
                 pullAll(newState.currentCardDeck, state.communityCards.set.concat(state.handCards.set));
                 console.log(newState.currentCardDeck);
                 return newState;}
+            case SHOW_RAUND:
+                console.log(`${action.type}`);
+                return {
+                    ...state,
+                    raund: (() => {
+                        switch (state.communityCards.set.length) {
+                            case 3:
+                                return 'flop';
+                            case 4:
+                                return  'turn';
+                            case 5:
+                                return  'river';
+                            default: return 'pre-flop';
+                        }
+                    })()
+                };
             default:
                 return state;
         }
@@ -267,7 +286,11 @@ export const tampCards = () =>
 export const updateCurrentDeck = () =>
     ({
         type: UPDATE_CURRENT_DECK
-})
-;
+    });
+
+export const showRaund = () =>
+    ({
+        type: SHOW_RAUND
+    });
 
 export default calcReducer;

@@ -4,7 +4,8 @@ import CommunityCards from "./CommunityCards";
 let mapStateToProps = (state) => {
     return {
         communityCards: state.calc.communityCards,
-        visibleFor: state.calc.cardSelectionDialog.visibleFor
+        visibleFor: state.calc.cardSelectionDialog.visibleFor,
+        raund: state.calc.raund
     }
 };
 

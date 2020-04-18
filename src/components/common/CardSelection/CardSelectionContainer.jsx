@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import CardSelection from "./CardSelection";
-import {closeCardSelectionDialog, tampCards} from "../../../redux/reducers/calc-reducer";
+import {closeCardSelectionDialog, showRaund, tampCards} from "../../../redux/reducers/calc-reducer";
 
 let mapStateToProps = (state) => {
     return {
@@ -12,7 +12,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps =  {
     closeCardSelectionDialog,
-    tampCards
+    tampCards,
+    showRaund
 };
 
 const CardSelectionContainer = connect(mapStateToProps, mapDispatchToProps)(CardSelection);

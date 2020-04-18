@@ -9,6 +9,7 @@ const CardSelection = (props) => {
     let onClickHandler = () => {
         props.closeCardSelectionDialog();
         props.tampCards();
+        props.showRaund();
     };
 
     let cardValue = (i) => props.selectedSuit === 52

@@ -28,7 +28,7 @@
   <component name="ProjectId" id="1aa1j8BvIrcuT98vt42m2d7ghwm" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/common/CardSelection" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/Calc" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -38,6 +38,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\WEB\2020-04-11_POKER-CALCULATOR\projects\poker-calc\src\components\Calc" />
       <recent name="D:\WEB\2020-04-11_POKER-CALCULATOR\projects\poker-calc\src\components\common\CardSelection" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -83,7 +84,7 @@
       <updated>1586959022230</updated>
       <workItem from="1586959023738" duration="12009000" />
       <workItem from="1587144050398" duration="3686000" />
-      <workItem from="1587193358909" duration="26923000" />
+      <workItem from="1587193358909" duration="28875000" />
     </task>
     <servers />
   </component>

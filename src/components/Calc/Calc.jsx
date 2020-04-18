@@ -1,6 +1,7 @@
 import React from 'react';
 import s from './Calc.module.css'
 import CommunityCardsContainer from "./CommunityCards/CommunityCardsContainer";
+import YourHandContainer from "./YourHand/YourHandContainer";
 
 
 class Calc extends React.Component {
@@ -14,8 +15,8 @@ class Calc extends React.Component {
             <div className={s.wrapper}>
                 <div className={s.calcWrapper}>
                     <CommunityCardsContainer/>
-                    {/*<YourHand />
-                    <Probability />*/}
+                    <YourHandContainer />
+                    {/*<Probability />*/}
                 </div>
             </div>
         );
