@@ -6,6 +6,10 @@ import CardSuiteContainer from "./CardSuit/CardSuiteContainer";
 
 const CardSelection = (props) => {
 
+    let onClickHandler = () => {
+        props.closeCardSelectionDialog();
+        props.tampCards();
+    };
 
     let cardValue = (i) => props.selectedSuit === 52
         ? i * 4 - (52 - props.selectedSuit) - 3
@@ -17,7 +21,11 @@ const CardSelection = (props) => {
             <CardValueContainer
                 key={i}
                 active={props.selectedValue === cardValue(i) && true}
-                cardId={cardValue(i)}/>)
+                cardId={
+                    props.currentCardDeck.indexOf(cardValue(i)) !== -1 || props.selectedValue === cardValue(i)
+                        ? cardValue(i)
+                        : 0
+                }/>)
     }
 
     cardValues.push(
@@ -39,7 +47,7 @@ const CardSelection = (props) => {
     return (
         <div
             className={s.cardSelection}
-            onClick={props.closeCardSelectionDialog}>
+            onClick={onClickHandler}>
             <div className={s.cardValue}>
                 {cardValues}
             </div>

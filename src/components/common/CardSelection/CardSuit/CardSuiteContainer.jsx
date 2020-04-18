@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import CardSuit from "./CardSuit";
-import {changeCard, changeSuit, changeValue} from "../../../../redux/reducers/calc-reducer";
+import {changeCard, changeSuit, changeValue, updateCurrentDeck} from "../../../../redux/reducers/calc-reducer";
 
 let mapStateToProps = (state) => {
     return {
@@ -14,6 +14,7 @@ let mapDispatchToProps = { //as Object
     changeValue,
     changeSuit,
     changeCard,
+    updateCurrentDeck
 };
 
 const CardSuiteContainer = connect(mapStateToProps, mapDispatchToProps)(CardSuit);

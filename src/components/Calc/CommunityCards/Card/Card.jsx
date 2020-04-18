@@ -6,11 +6,11 @@ const Card = (props) => {
 
     let onClickHandler = () => {
 
-        debugger
-
         props.selectCard(props.setName, props.itemNumber);
         props.changeValue(props.cardId);
-        props.changeSuit(((props.cardId / 4) - Math.trunc(props.cardId / 4 - 0.25)) * 4 + 52);
+        props.changeSuit( props.cardId === 0
+            ? 53
+            : ((props.cardId / 4) - Math.trunc(props.cardId / 4 - 0.25)) * 4 + 52);
     };
 
     return (

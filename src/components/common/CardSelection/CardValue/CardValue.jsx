@@ -7,6 +7,7 @@ const CardValue = (props) => {
     let onClickHandler = (e) => {
         props.changeValue(props.cardId);
         props.changeCard(props.cardId);
+        props.updateCurrentDeck();
         e.stopPropagation();
     };
 

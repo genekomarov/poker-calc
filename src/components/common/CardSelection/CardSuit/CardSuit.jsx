@@ -13,6 +13,8 @@ const CardSuit = (props) => {
         props.changeValue(props.cardValue === 0 ? props.cardValue : props.cardValue + (props.cardId - currentSuit));
         props.changeCard(props.cardValue === 0 ? props.cardValue : props.cardValue + (props.cardId - currentSuit));
 
+        props.updateCurrentDeck();
+
         e.stopPropagation();
     };
 

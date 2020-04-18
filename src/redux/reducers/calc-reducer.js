@@ -1,13 +1,17 @@
+import {pull, pullAll} from "lodash";
+
 const INIT_CARD_DECK = 'INIT_CARD_DECK';
 const SELECT_CARD = 'SELECT_CARD';
 const CHANGE_VALUE = 'CHANGE_VALUE';
 const CHANGE_SUIT = 'CHANGE_SUIT';
 const CHANGE_CARD = 'CHANGE_CARD';
 const CLOSE_CARD_SELECTION_DIALOG = 'CLOSE_CARD_SELECTION_DIALOG';
+const TAMP_CARDS = 'TAMP_CARDS';
+const UPDATE_CURRENT_DECK = 'UPDATE_CURRENT_DECK';
 
 let initialState =
     {
-        cardTypeSet: [
+        /*cardTypeSet: [
             {value: null, suit: null},     // id: '0',
             {value: '2', suit: 'h'},       // id: '1',
             {value: '2', suit: 's'},       // id: '2',
@@ -65,7 +69,7 @@ let initialState =
             {value: null, suit: 's'},      // id: '54',
             {value: null, suit: 'd'},      // id: '55',
             {value: null, suit: 'c'}       // id: '56',
-        ],
+        ],*/
         pokerHands: [
             {name: 'base', currentProb: -1},                    // id: '0',
             {name: 'High Card', currentProb: -1},               // id: '1',
@@ -80,15 +84,16 @@ let initialState =
             {name: 'Flush Royal', currentProb: -1}              // id: '10',
         ],
 
-        cardDeck: [],
+        fullCardDeck: [],
+        currentCardDeck: [],
 
         communityCards: {
-            set: [0,0,0,0,0],
+            set: [],
             activeItem: null
         },
 
         handCards: {
-            set: [10],
+            set: [],
             activeItem: null
         },
 
@@ -101,70 +106,123 @@ let initialState =
     };
 
 const calcReducer = (state = initialState, action) => {
-    switch (action.type) {
-        case INIT_CARD_DECK:
-            return {
-                ...state,
-                cardDeck: (() => {
-                    let cardDeck = [];
-                    for (let i = 1; i <= 52; i++) cardDeck.push(i);
-                    return cardDeck;
-                })()
-            };
-        case SELECT_CARD:
-            return {
-                ...state,
-                [action.setName]: {
-                    ...state[action.setName],
-                    activeItem: action.itemNumber
-                },
-                cardSelectionDialog: {
-                    ...state.cardSelectionDialog,
-                    visibleFor: action.setName
-                }
-            };
-        case CHANGE_VALUE:
-            return {
-                ...state,
-                cardSelectionDialog: {
-                    ...state.cardSelectionDialog,
-                    selectedValue: action.cardId
-                }
-            };
-        case CHANGE_SUIT:
-            return {
-                ...state,
-                cardSelectionDialog: {
-                    ...state.cardSelectionDialog,
-                    selectedSuit: action.cardId
-                }
-            };
-        case CHANGE_CARD: {
+        switch (action.type) {
+            case INIT_CARD_DECK: {
+                console.log(`${action.type}`)
+                let newState = {
+                    ...state,
+                    fullCardDeck: (() => {
+                        let cardDeck = [];
+                        for (let i = 1; i <= 52; i++) cardDeck.push(i);
+                        return cardDeck;
+                    })()
+                };
+                newState.currentCardDeck = [...newState.fullCardDeck];
+                return newState;
+            }
+            case SELECT_CARD:
+                console.log(`${action.type} ${action.setName} ${action.itemNumber}`)
+                return {
+                    // Устанавливаем для выбранного набора активный элемент
+                    ...state,
+                    [action.setName]: {
+                        ...state[action.setName],
+                        activeItem: action.itemNumber
+                    },
+                    // Устанавливаем какой набор выбран
+                    cardSelectionDialog: {
+                        ...state.cardSelectionDialog,
+                        visibleFor: action.setName
+                    }
+                };
+            case CHANGE_VALUE:
+                console.log(`${action.type} ${action.cardId}`)
+                return {
+                    // Устанавливаем выбранный номинал карты для формы
+                    ...state,
+                    cardSelectionDialog: {
+                        ...state.cardSelectionDialog,
+                        selectedValue: action.cardId
+                    }
+                };
+            case CHANGE_SUIT:
+                console.log(`${action.type} ${action.cardId}`)
+                return {
+                    // Устанавливаем выбранную рубашку для формы
+                    ...state,
+                    cardSelectionDialog: {
+                        ...state.cardSelectionDialog,
+                        selectedSuit: action.cardId
+                    }
+                };
+            case CHANGE_CARD: {
+                console.log(`${action.type} ${action.cardId}`)
+                let newState = {
+                    ...state,
+                    [state.cardSelectionDialog.visibleFor]: {
+                        ...state[state.cardSelectionDialog.visibleFor],
+                        set: [
+                            ...state[state.cardSelectionDialog.visibleFor].set
+                        ]
+                    }
+                };
 
-            let newState = {
-                ...state,
-                [state.cardSelectionDialog.visibleFor]: {
-                    ...state[state.cardSelectionDialog.visibleFor],
-                    set: [
-                        ...state[state.cardSelectionDialog.visibleFor].set
-                    ]
-                }
-            };
-            newState[state.cardSelectionDialog.visibleFor]
-                .set[state[state.cardSelectionDialog.visibleFor].activeItem-1] = action.cardId;
-            return newState;}
-        case CLOSE_CARD_SELECTION_DIALOG:
-            return {
-                ...state,
-                cardSelectionDialog: {
-                    ...state.cardSelectionDialog,
-                    visibleFor: null
-                }
-            };
-        default:
-            return state;
+                // Меняем номинал выбранной карты в наборе
+                newState[state.cardSelectionDialog.visibleFor]
+                    .set[state[state.cardSelectionDialog.visibleFor].activeItem - 1] = action.cardId;
+
+                return newState;
+            }
+            case CLOSE_CARD_SELECTION_DIALOG:
+                console.log(`${action.type}`)
+                return {
+                    // Сбрасываем выбранный набор
+                    ...state,
+                    cardSelectionDialog: {
+                        ...state.cardSelectionDialog,
+                        visibleFor: null
+                    }
+                };
+            case TAMP_CARDS: {
+                console.log(`${action.type}`);
+
+                let newState = {
+                    ...state,
+                    communityCards: {
+                        ...state.communityCards,
+                        set: [
+                            ...state.communityCards.set
+                        ],
+                        activeItem: null
+                    },
+                    handCards: {
+                        ...state.handCards,
+                        set: [
+                            ...state.handCards.set
+                        ],
+                        activeItem: null
+                    }
+                };
+
+                pull(newState.communityCards.set, 0, undefined);
+                pull(newState.handCards.set, 0, undefined);
+
+                return newState;
+            }
+            case UPDATE_CURRENT_DECK: {
+                console.log(`${action.type}`);
+                let newState = {
+                    ...state,
+                    currentCardDeck: [...state.fullCardDeck]
+                };
+                pullAll(newState.currentCardDeck, state.communityCards.set.concat(state.handCards.set));
+                console.log(newState.currentCardDeck);
+                return newState;}
+            default:
+                return state;
+        }
     }
-};
+;
 
 export const initCardDeck = () =>
     ({
@@ -200,5 +258,16 @@ export const closeCardSelectionDialog = () =>
     ({
         type: CLOSE_CARD_SELECTION_DIALOG
     });
+
+export const tampCards = () =>
+    ({
+        type: TAMP_CARDS
+    });
+
+export const updateCurrentDeck = () =>
+    ({
+        type: UPDATE_CURRENT_DECK
+})
+;
 
 export default calcReducer;
