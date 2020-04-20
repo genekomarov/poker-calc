@@ -4,7 +4,12 @@ import {updateProbabilities} from "../../../redux/reducers/calc-reducer";
 
 let mapStateToProps = (state) => {
     return {
-        pokerHands: state.calc.pokerHands
+        pokerHands: state.calc.pokerHands,
+        playersNumber: state.calc.playersNumber,
+
+        communityCardSet: state.calc.communityCards.set,
+        handCardSet: state.calc.handCards.set,
+        isCalculations: state.calc.isCalculations
     }
 };
 

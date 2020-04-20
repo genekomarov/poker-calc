@@ -8,6 +8,7 @@ const CardValue = (props) => {
         props.changeValue(props.cardId);
         props.changeCard(props.cardId);
         props.updateCurrentDeck();
+        props.clearPokerHandsData();
         e.stopPropagation();
     };
 

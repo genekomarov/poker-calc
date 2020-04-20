@@ -11,6 +11,7 @@ const UPDATE_CURRENT_DECK = 'UPDATE_CURRENT_DECK';
 const SHOW_RAUND = 'SHOW_RAUND';
 const CLEAR_CARD_SET = 'CLEAR_CARD_SET';
 const UPDATE_PROBABILITIES = 'UPDATE_PROBABILITIES';
+const CLEAR_POKER_HANDS_DATA = 'CLEAR_POKER_HANDS_DATA';
 
 let initialState =
     {
@@ -74,18 +75,21 @@ let initialState =
             {value: null, suit: 'c'}       // id: '56',
         ],*/
         pokerHands: [
-            {name: 'base', currentProb: 0},                    // id: '0',
-            {name: 'High Card', currentProb: 50},               // id: '1',
-            {name: 'One Pair', currentProb: 50},                // id: '2',
-            {name: 'Two Pair', currentProb: 50},                // id: '3',
-            {name: 'Set', currentProb: 50},                     // id: '4',
-            {name: 'Straight', currentProb: 50},                // id: '5',
-            {name: 'Flush', currentProb: 50},                   // id: '6',
-            {name: 'Full House', currentProb: 50},              // id: '7',
-            {name: 'Four of a Kind', currentProb: 50},          // id: '8',
-            {name: 'Straight-flush', currentProb: 50},          // id: '9',
-            {name: 'Flush Royal', currentProb: 50}              // id: '10',
+            {name: 'totalGames'      ,viewName: 'totalGames'       , value: 0},
+            {name: 'base'            ,viewName: 'base'             , wins: 0, currentProb: "-"},
+            {name: 'High_Card'       ,viewName: 'High Card'        , wins: 0, currentProb: "-"},
+            {name: 'One_Pair'        ,viewName: 'One Pair'         , wins: 0, currentProb: "-"},
+            {name: 'Two_Pair'        ,viewName: 'Two Pair'         , wins: 0, currentProb: "-"},
+            {name: 'Three_of_a_Kind' ,viewName: 'Three of a Kind'  , wins: 0, currentProb: "-"},
+            {name: 'Straight'        ,viewName: 'Straight'         , wins: 0, currentProb: "-"},
+            {name: 'Flush'           ,viewName: 'Flush'            , wins: 0, currentProb: "-"},
+            {name: 'Full_House'      ,viewName: 'Full House'       , wins: 0, currentProb: "-"},
+            {name: 'Four_of_a_Kind'  ,viewName: 'Four of a Kind'   , wins: 0, currentProb: "-"},
+            {name: 'Straight_Flush'  ,viewName: 'Straight Flush'   , wins: 0, currentProb: "-"},
+            {name: 'Royal_Flush'     ,viewName: 'Royal Flush'      , wins: 0, currentProb: "-"}
         ],
+
+        isCalculations: true,
 
         fullCardDeck: [],
         currentCardDeck: [],
@@ -106,7 +110,9 @@ let initialState =
             visibleFor: null
         },
 
-        raund: 'pre-flop'
+        raund: 'pre-flop',
+
+        playersNumber: '5'
 
     };
 
@@ -183,7 +189,6 @@ const calcReducer = (state = initialState, action) => {
                 newState.pokerHands[0].currentProb = 0;
                 //////////////////////////////
                 //END OF TEST UPDATE PROBABILITIES
-
                 return newState;
             }
             case CLOSE_CARD_SELECTION_DIALOG:
@@ -229,8 +234,8 @@ const calcReducer = (state = initialState, action) => {
                     currentCardDeck: [...state.fullCardDeck]
                 };
                 pullAll(newState.currentCardDeck, state.communityCards.set.concat(state.handCards.set));
-                console.log(newState.currentCardDeck);
-                return newState;}
+                return newState;
+            }
             case SHOW_RAUND:
                 console.log(`${action.type}`);
                 return {
@@ -240,14 +245,15 @@ const calcReducer = (state = initialState, action) => {
                             case 3:
                                 return 'flop';
                             case 4:
-                                return  'turn';
+                                return 'turn';
                             case 5:
-                                return  'river';
-                            default: return 'pre-flop';
+                                return 'river';
+                            default:
+                                return 'pre-flop';
                         }
                     })()
                 };
-            case CLEAR_CARD_SET:{
+            case CLEAR_CARD_SET: {
                 console.log(`${action.type} ${action.setNames}`);
 
                 let newState = {
@@ -261,16 +267,64 @@ const calcReducer = (state = initialState, action) => {
                     newState[action.setNames[i]].set = [];
                     newState[action.setNames[i]].activeItem = null;
                 }
-                return newState ;}
-            case UPDATE_PROBABILITIES: {
+
+                newState.isCalculations = true;
+
+                return newState;
+            }
+            case CLEAR_POKER_HANDS_DATA:{
                 console.log(`${action.type}`);
                 let newState = {
                     ...state,
                     pokerHands: [...state.pokerHands]
                 };
-                newState.pokerHands[0] = {...state.pokerHands[0]};
-                newState.pokerHands[0].currentProb ++ ;
-                return newState ;}
+
+                for (let i = 0; i < newState.pokerHands.length ; i++) newState.pokerHands[i] = {...state.pokerHands[i]};
+                for (let i = 0; i < newState.pokerHands.length ; i++) {
+                    i === 0
+                        ? newState.pokerHands[i].value = 0
+                        : newState.pokerHands[i].wins = 0;
+                    newState.pokerHands[i].currentProb = 0;
+                }
+
+                newState.isCalculations = true;
+                return newState;}
+
+            case UPDATE_PROBABILITIES: {
+                console.log(`${action.type} ${action.gamesData}`);
+                let newState = {
+                    ...state,
+                    pokerHands: [...state.pokerHands]
+                };
+
+                for (let i = 0; i <= 11 ; i++) {
+                    newState.pokerHands[i] = {...state.pokerHands[i]};
+                }
+
+                ///////////////////////
+
+                //Установка totalGames
+                newState.pokerHands[0].value += action.gamesData.totalGames;
+                if (newState.pokerHands[0].value >= 10000) newState.isCalculations = false;
+
+                //Подсчет base
+                for (let key in action.gamesData) {
+                    if (key !== 'totalGames') newState.pokerHands[1].wins += action.gamesData[key];
+                }
+
+                //Установка выйгрышей по рукам
+                for (let i = 2; i <= 11 ; i++) {
+                    for (let key in action.gamesData) {
+                        if (newState.pokerHands[i].name === key) newState.pokerHands[i].wins += action.gamesData[key];
+                    }
+                }
+
+                //Установка вероятностей
+                for (let i = 1; i <=11 ; i++) {
+                    newState.pokerHands[i].currentProb = Math.round(newState.pokerHands[i].wins / newState.pokerHands[0].value * 100);
+                }
+                return newState;
+            }
             default:
                 return state;
         }
@@ -333,9 +387,15 @@ export const clearCardSet = (setNames) =>
         setNames
     });
 
-export const updateProbabilities = () =>
+export const updateProbabilities = (gamesData) =>
     ({
-        type: UPDATE_PROBABILITIES
+        type: UPDATE_PROBABILITIES,
+        gamesData
+    });
+
+export const clearPokerHandsData = () =>
+    ({
+        type: CLEAR_POKER_HANDS_DATA,
     });
 
 export default calcReducer;

@@ -37,12 +37,12 @@
     <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\WEB\2020-04-11_POKER-CALCULATOR\projects\poker-calc\src\components\Calc" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\WEB\2020-04-11_POKER-CALCULATOR\projects\poker-calc\src\components\Calc" />
       <recent name="D:\WEB\2020-04-11_POKER-CALCULATOR\projects\poker-calc\src\components\common\CardSelection" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\WEB\2020-04-11_POKER-CALCULATOR\projects\poker-calc\src\components\Calc" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -102,7 +102,8 @@
       <workItem from="1587193358909" duration="31566000" />
       <workItem from="1587279710467" duration="6160000" />
       <workItem from="1587321959026" duration="7849000" />
-      <workItem from="1587375289550" duration="11138000" />
+      <workItem from="1587375289550" duration="11745000" />
+      <workItem from="1587393460293" duration="28724000" />
     </task>
     <servers />
   </component>

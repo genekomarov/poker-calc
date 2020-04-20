@@ -12,16 +12,19 @@ const CardSelection = (props) => {
         props.showRaund();
     };
 
-    let cardValue = (i) => props.selectedSuit === 52
-        ? i * 4 - (52 - props.selectedSuit) - 3
-        : i * 4 - (52 - props.selectedSuit) - 4;
+    let cardValue = (i) => {
+        return props.selectedSuit === 52
+            ? i * 4 - (52 - props.selectedSuit) - 3
+            : i * 4 - (52 - props.selectedSuit) - 4
+    };
+
     let cardValues = [];
 
     for (let i = 13; i >= 1; i--) {
         cardValues.push(
             <CardValueContainer
                 key={i}
-                active={props.selectedValue === cardValue(i) && true}
+                active={props.selectedValue === cardValue(i)}
                 cardId={
                     props.currentCardDeck.indexOf(cardValue(i)) !== -1 || props.selectedValue === cardValue(i)
                         ? cardValue(i)

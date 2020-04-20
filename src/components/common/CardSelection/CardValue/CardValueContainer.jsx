@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import CardValue from "./CardValue";
-import {changeCard, changeValue, updateCurrentDeck} from "../../../../redux/reducers/calc-reducer";
+import {changeCard, changeValue, clearPokerHandsData, updateCurrentDeck} from "../../../../redux/reducers/calc-reducer";
 
 let mapStateToProps = (state) => {
     return {}
@@ -9,7 +9,9 @@ let mapStateToProps = (state) => {
 let mapDispatchToProps = { //as Object
     changeValue,
     changeCard,
-    updateCurrentDeck
+    updateCurrentDeck,
+    clearPokerHandsData
+
 };
 
 const CardValueContainer = connect(mapStateToProps, mapDispatchToProps)(CardValue);

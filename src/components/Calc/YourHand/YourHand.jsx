@@ -8,7 +8,7 @@ const YourHand = (props) => {
 
     let cards = [];
     for (let i = 1; i <= 2; i++) {
-        if ( props.handCards.set[i-1] ) {
+        if ( props.handCards.set[i-1] > 0 ) {
             cards.push(
                 <CardContainer
                     key={i}

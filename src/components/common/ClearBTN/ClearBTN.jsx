@@ -9,6 +9,7 @@ const ClearBTN = (props) => {
                 if (!props.visibleFor) {
                     props.clearCardSet(props.clearFor);
                     props.updateCurrentDeck();
+                    props.clearPokerHandsData();
                 }
             }}
         >

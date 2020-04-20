@@ -7,17 +7,6 @@ import ProbabilityContainer from "./Probability/ProbabilityContainer";
 
 class Calc extends React.Component {
 
-    /*async = (action) => {
-        let buf = 0;
-        let process = (level = 0) => {
-            buf += 1;
-            console.log(`${buf} ${level}`);
-            if (buf <= 50) process(level+1);
-            if (level === 0 && buf > 50) action();
-        };
-        process();
-    };*/
-
     componentDidMount() {
         this.props.initCardDeck();
     }

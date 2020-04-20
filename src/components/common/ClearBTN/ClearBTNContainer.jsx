@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import ClearBTN from "./ClearBTN";
-import {clearCardSet, updateCurrentDeck} from "../../../redux/reducers/calc-reducer";
+import {clearCardSet, clearPokerHandsData, updateCurrentDeck} from "../../../redux/reducers/calc-reducer";
 
 let mapStateToProps = (state) => {
     return {
@@ -10,7 +10,8 @@ let mapStateToProps = (state) => {
 
 let mapDispatchToProps = { //as Object
     clearCardSet,
-    updateCurrentDeck
+    updateCurrentDeck,
+    clearPokerHandsData
 };
 
 const ClearBTNContainer = connect(mapStateToProps, mapDispatchToProps)(ClearBTN);

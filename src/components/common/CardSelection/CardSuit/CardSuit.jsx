@@ -1,6 +1,6 @@
 import React from 'react';
 import CardIMGContainer from "../../CardIMG/CardIMGContainer";
-//import s from '   '
+
 
 const CardSuit = (props) => {
 
@@ -10,12 +10,19 @@ const CardSuit = (props) => {
 
         let currentSuit = (((props.cardValue / 4) - Math.trunc(props.cardValue / 4 - 0.25)) * 4 + 52);
 
-        props.changeValue(props.cardValue === 0 ? props.cardValue : props.cardValue + (props.cardId - currentSuit));
-        props.changeCard(props.cardValue === 0 ? props.cardValue : props.cardValue + (props.cardId - currentSuit));
+        if (props.currentCardDeck.indexOf(props.cardValue + (props.cardId - currentSuit)) === -1) {
+            props.changeValue(0);
+            props.changeCard(0);
+        } else {
+            props.changeValue(props.cardValue === 0 ? props.cardValue : props.cardValue + (props.cardId - currentSuit));
+            props.changeCard(props.cardValue === 0 ? props.cardValue : props.cardValue + (props.cardId - currentSuit));
+        }
 
         props.updateCurrentDeck();
+        props.clearPokerHandsData();
 
         e.stopPropagation();
+        debugger
     };
 
     return (
