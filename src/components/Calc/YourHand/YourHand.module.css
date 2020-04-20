@@ -3,6 +3,7 @@
     /*justify-content: space-between;*/
     margin-left: -5px;
     margin-right: -5px;
+    position: relative;
 }
 
 .raund {
@@ -11,8 +12,14 @@
 }
 
 .wrapper {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
-
+.clearBtn {
+    display: flex;
+    position: absolute;
+    right: 250px;
+    top: 24px;
+    transform: rotate(-90deg);
+}
 

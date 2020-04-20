@@ -2,6 +2,7 @@ import React from 'react';
 import s from './CommunityCards.module.css'
 import CardContainer from "./Card/CardContainer";
 import CardSelectionContainer from "../../common/CardSelection/CardSelectionContainer";
+import ClearBTNContainer from "../../common/ClearBTN/ClearBTNContainer";
 
 const CommunityCards = (props) => {
 
@@ -34,6 +35,7 @@ const CommunityCards = (props) => {
         <div className={s.wrapper}>
             <h3>Community cards</h3>
             <div className={s.cardsWrapper}>
+                <div className={s.clearBtn}><ClearBTNContainer clearFor={['communityCards']}>clear</ClearBTNContainer></div>
                 {cards}
             </div>
             { props.visibleFor === 'communityCards' && <CardSelectionContainer />}

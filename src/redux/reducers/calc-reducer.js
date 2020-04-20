@@ -9,6 +9,8 @@ const CLOSE_CARD_SELECTION_DIALOG = 'CLOSE_CARD_SELECTION_DIALOG';
 const TAMP_CARDS = 'TAMP_CARDS';
 const UPDATE_CURRENT_DECK = 'UPDATE_CURRENT_DECK';
 const SHOW_RAUND = 'SHOW_RAUND';
+const CLEAR_CARD_SET = 'CLEAR_CARD_SET';
+const UPDATE_PROBABILITIES = 'UPDATE_PROBABILITIES';
 
 let initialState =
     {
@@ -72,17 +74,17 @@ let initialState =
             {value: null, suit: 'c'}       // id: '56',
         ],*/
         pokerHands: [
-            {name: 'base', currentProb: -1},                    // id: '0',
-            {name: 'High Card', currentProb: -1},               // id: '1',
-            {name: 'One Pair', currentProb: -1},                // id: '2',
-            {name: 'Two Pair', currentProb: -1},                // id: '3',
-            {name: 'Set', currentProb: -1},                     // id: '4',
-            {name: 'Straight', currentProb: -1},                // id: '5',
-            {name: 'Flush', currentProb: -1},                   // id: '6',
-            {name: 'Full House', currentProb: -1},              // id: '7',
-            {name: 'Four of a Kind', currentProb: -1},          // id: '8',
-            {name: 'Straight-flush', currentProb: -1},          // id: '9',
-            {name: 'Flush Royal', currentProb: -1}              // id: '10',
+            {name: 'base', currentProb: 0},                    // id: '0',
+            {name: 'High Card', currentProb: 50},               // id: '1',
+            {name: 'One Pair', currentProb: 50},                // id: '2',
+            {name: 'Two Pair', currentProb: 50},                // id: '3',
+            {name: 'Set', currentProb: 50},                     // id: '4',
+            {name: 'Straight', currentProb: 50},                // id: '5',
+            {name: 'Flush', currentProb: 50},                   // id: '6',
+            {name: 'Full House', currentProb: 50},              // id: '7',
+            {name: 'Four of a Kind', currentProb: 50},          // id: '8',
+            {name: 'Straight-flush', currentProb: 50},          // id: '9',
+            {name: 'Flush Royal', currentProb: 50}              // id: '10',
         ],
 
         fullCardDeck: [],
@@ -174,6 +176,14 @@ const calcReducer = (state = initialState, action) => {
                 newState[state.cardSelectionDialog.visibleFor]
                     .set[state[state.cardSelectionDialog.visibleFor].activeItem - 1] = action.cardId;
 
+                //TEST UPDATE PROBABILITIES
+                ////////////////////////////////
+                newState.pokerHands = [...state.pokerHands];
+                newState.pokerHands[0] = {...state.pokerHands[0]};
+                newState.pokerHands[0].currentProb = 0;
+                //////////////////////////////
+                //END OF TEST UPDATE PROBABILITIES
+
                 return newState;
             }
             case CLOSE_CARD_SELECTION_DIALOG:
@@ -237,6 +247,30 @@ const calcReducer = (state = initialState, action) => {
                         }
                     })()
                 };
+            case CLEAR_CARD_SET:{
+                console.log(`${action.type} ${action.setNames}`);
+
+                let newState = {
+                    ...state,
+                    communityCards: {...state.communityCards},
+                    handCards: {...state.handCards}
+                };
+
+                for (let i = 0; i < action.setNames.length; i++) {
+
+                    newState[action.setNames[i]].set = [];
+                    newState[action.setNames[i]].activeItem = null;
+                }
+                return newState ;}
+            case UPDATE_PROBABILITIES: {
+                console.log(`${action.type}`);
+                let newState = {
+                    ...state,
+                    pokerHands: [...state.pokerHands]
+                };
+                newState.pokerHands[0] = {...state.pokerHands[0]};
+                newState.pokerHands[0].currentProb ++ ;
+                return newState ;}
             default:
                 return state;
         }
@@ -291,6 +325,17 @@ export const updateCurrentDeck = () =>
 export const showRaund = () =>
     ({
         type: SHOW_RAUND
+    });
+
+export const clearCardSet = (setNames) =>
+    ({
+        type: CLEAR_CARD_SET,
+        setNames
+    });
+
+export const updateProbabilities = () =>
+    ({
+        type: UPDATE_PROBABILITIES
     });
 
 export default calcReducer;

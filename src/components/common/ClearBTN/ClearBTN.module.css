@@ -1,0 +1,9 @@
+.wrapper {
+    padding: 0px 7px;
+    border: solid 1px darkcyan;
+    cursor: pointer;
+}
+
+.wrapper::selection {
+    background: transparent;
+}

@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import Calc from "./Calc";
-import {initCardDeck} from "../../redux/reducers/calc-reducer";
+import {initCardDeck, updateProbabilities} from "../../redux/reducers/calc-reducer";
 
 let mapStateToProps = (state) => {
     return {
@@ -9,7 +9,8 @@ let mapStateToProps = (state) => {
 };
 
 let mapDispatchToProps = {
-    initCardDeck
+    initCardDeck,
+    updateProbabilities
 };
 
 const CalcContainer = connect(mapStateToProps, mapDispatchToProps)(Calc);

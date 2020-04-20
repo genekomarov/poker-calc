@@ -6,6 +6,7 @@
     margin: 5px;
     background-size: auto 60px;
     background-repeat: no-repeat;
+    cursor: pointer;
 }
 
 .active {

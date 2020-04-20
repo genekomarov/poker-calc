@@ -14,10 +14,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="JavaScript File" />
         <option value="reducer" />
         <option value="Component JSX" />
+        <option value="CSS File" />
         <option value="ComponentContainer" />
       </list>
     </option>
@@ -28,7 +28,7 @@
   <component name="ProjectId" id="1aa1j8BvIrcuT98vt42m2d7ghwm" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/components/Calc" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../2020-03-25_REACT-KAMASUTRA/projects/01-first-project/React-social-network" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -61,6 +61,16 @@
     <configuration name="Debug Application" type="JavascriptDebugType" uri="http://localhost:3000">
       <method v="2" />
     </configuration>
+    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="build" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="npm start" type="js.build_tools.npm">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -71,6 +81,11 @@
       <envs />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="npm.build" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -84,7 +99,10 @@
       <updated>1586959022230</updated>
       <workItem from="1586959023738" duration="12009000" />
       <workItem from="1587144050398" duration="3686000" />
-      <workItem from="1587193358909" duration="28875000" />
+      <workItem from="1587193358909" duration="31566000" />
+      <workItem from="1587279710467" duration="6160000" />
+      <workItem from="1587321959026" duration="7849000" />
+      <workItem from="1587375289550" duration="11138000" />
     </task>
     <servers />
   </component>
