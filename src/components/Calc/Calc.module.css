@@ -12,3 +12,12 @@
     padding: 20px 40px;
     position: relative;
 }
+
+.copyrights {
+    font-size: 0.7rem;
+    margin-top: 35px;
+    text-align: center;
+    position: absolute;
+    left: 0;
+    right: 0;
+}

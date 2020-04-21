@@ -1,6 +1,6 @@
 import {connect} from "react-redux";
 import Probability from "./Probability";
-import {updateProbabilities} from "../../../redux/reducers/calc-reducer";
+import {changePlayersNumber, clearPokerHandsData, updateProbabilities} from "../../../redux/reducers/calc-reducer";
 
 let mapStateToProps = (state) => {
     return {
@@ -14,7 +14,9 @@ let mapStateToProps = (state) => {
 };
 
 let mapDispatchToProps = {
-    updateProbabilities
+    updateProbabilities,
+    changePlayersNumber,
+    clearPokerHandsData
 };
 
 const ProbabilityContainer = connect(mapStateToProps, mapDispatchToProps)(Probability);

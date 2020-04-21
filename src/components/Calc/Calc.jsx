@@ -18,6 +18,10 @@ class Calc extends React.Component {
                     <CommunityCardsContainer/>
                     <YourHandContainer />
                     <ProbabilityContainer />
+                    <div className={s.copyrights}>
+                        <p>© developed by Eugene Komarov 2020</p>
+                        <p>uses React, Redux, poker-calc libraries</p>
+                    </div>
                 </div>
             </div>
         );

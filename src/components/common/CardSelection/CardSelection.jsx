@@ -50,14 +50,19 @@ const CardSelection = (props) => {
 
     return (
         <div
-            className={s.cardSelection}
-            onClick={onClickHandler}>
-            <div className={s.cardValue}>
+            onClick={onClickHandler}
+            className={s.cardSelection}>
+            <div
+                className={s.close}
+            > </div>
+            <div className={s.cardValues}>
                 {cardValues}
             </div>
-            <div className={s.cardSuit}>
+            <div className={s.cardSuits}>
                 {cardSuites}
             </div>
+
+
         </div>
     );
 };

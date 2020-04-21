@@ -120,37 +120,40 @@ class Probability extends React.Component {
                 playerCards: this.cards.playerCards
             }, {compactCards: true});
             this.gamesData.totalGames ++;
+
+            let increase = game.length === 1 ? 1 : 0.5;
+
             if(game[0].playerId === 0) {
                 switch (game[0].hand.handInfo.type) {
                     case 'High Card':
-                        this.gamesData.High_Card++;
+                        this.gamesData.High_Card += increase;
                         break;
                     case 'One Pair':
-                        this.gamesData.One_Pair++;
+                        this.gamesData.One_Pair += increase;
                         break;
                     case 'Two Pair':
-                        this.gamesData.Two_Pair++;
+                        this.gamesData.Two_Pair += increase;
                         break;
                     case 'Three of a Kind':
-                        this.gamesData.Three_of_a_Kind++;
+                        this.gamesData.Three_of_a_Kind += increase;
                         break;
                     case 'Straight':
-                        this.gamesData.Straight++;
+                        this.gamesData.Straight += increase;
                         break;
                     case 'Flush':
-                        this.gamesData.Flush++;
+                        this.gamesData.Flush += increase;
                         break;
                     case 'Full House':
-                        this.gamesData.Full_House++;
+                        this.gamesData.Full_House += increase;
                         break;
                     case 'Four of a Kind':
-                        this.gamesData.Four_of_a_Kind++;
+                        this.gamesData.Four_of_a_Kind += increase;
                         break;
                     case 'Straight Flush':
-                        this.gamesData.Straight_Flush++;
+                        this.gamesData.Straight_Flush += increase;
                         break;
                     case 'Royal Flush':
-                        this.gamesData.Royal_Flush++;
+                        this.gamesData.Royal_Flush += increase;
                         break;
                     default: break;
                 }
@@ -181,7 +184,6 @@ class Probability extends React.Component {
     render() {
 
         let pokerHands = [];
-
         for (let i = 2; i <=11 ; i++) {
             pokerHands.push(
                 <li
@@ -193,11 +195,28 @@ class Probability extends React.Component {
             )
         }
 
+        let selectOptions = [];
+        for (let i = 2; i <= 9 ; i++) {
+            this.props.playersNumber === i
+                ? selectOptions.push(<option value={i} selected>{i}</option>)
+                : selectOptions.push(<option value={i}>{i}</option>)
+        }
+
         return (
             <>
                 <div className={s.players}>
                     <p>Calculate for</p>
-                    <input name='playersCount' type='number' min='2' max='9' step='1' placeholder='5' defaultValue={this.props.playersNumber}/>
+                    {/*<input name='playersCount' type='number' min='2' max='9' step='1' placeholder='5' defaultValue={this.props.playersNumber}/>*/}
+                    <select
+                        className={s.select}
+                        name="playersCount"
+                        onChange={ (event) => {
+                            this.props.changePlayersNumber(event.target.value);
+                            this.props.clearPokerHandsData();
+                        }}
+                    >
+                        {selectOptions}
+                    </select>
                     <span>players</span>
                 </div>
                 <h3 className={s.baseProb}>
